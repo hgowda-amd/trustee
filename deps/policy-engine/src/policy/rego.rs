@@ -7,7 +7,7 @@ use std::collections::HashMap;
 use key_value_storage::KeyValueStorageInstance;
 use regorus::Extension;
 use serde_json::Value;
-use tracing::{info, instrument};
+use tracing::{info, instrument, warn};
 
 use crate::{EngineTrait, EvaluationResult, PolicyEngine, PolicyError, Result};
 
@@ -96,7 +96,10 @@ impl Regorus {
                         info!("No claim {rule} found in policy.");
                         None
                     }
-                    Err(e) => return Err(PolicyError::EvalPolicyFailed(e)),
+                    Err(e) => {
+                        warn!("Policy rule evaluation failed for rule {rule}: {e:?}");
+                        return Err(PolicyError::EvalPolicyFailed(e));
+                    }
                 };
                 if let Some(value) = value {
                     let value = serde_json::to_value(value)
