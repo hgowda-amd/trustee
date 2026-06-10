@@ -19,7 +19,7 @@ use rvps::RvpsError;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use thiserror::Error;
-use tracing::{debug, info};
+use tracing::{debug, info, warn};
 use verifier::{InitDataHash, ReportData, TeeEvidenceParsedClaim};
 
 use crate::ear_token::EarAttestationTokenBroker;
@@ -223,7 +223,11 @@ impl AttestationService {
             let claims = verifier
                 .evaluate(verification_request.evidence, &report_data, &init_data_hash)
                 .await
-                .map_err(|e| anyhow!("Verifier evaluate failed: {e:?}"))?;
+                .map_err(|e| {
+                    let msg = format!("Verifier evaluate failed: {e:?}");
+                    warn!(tee =? verification_request.tee, "{msg}");
+                    anyhow!("{msg}")
+                })?;
 
             for (claims_from_tee_evidence, tee_class) in claims {
                 info!(

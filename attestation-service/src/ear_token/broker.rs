@@ -216,6 +216,7 @@ impl EarAttestationTokenBroker {
                             anyhow!("RVPS query reference value thread join failed: {e:?}")
                         })? {
                             Ok(Some(v)) => {
+                                debug!("Reference value found for id: {id}");
                                 let json_value = serde_json::to_value(v)?;
                                 let value: regorus::Value = serde_json::from_value(json_value)?;
                                 Ok(value)
@@ -232,6 +233,7 @@ impl EarAttestationTokenBroker {
                 extensions.push(extension);
             }
 
+            debug!("Evaluating policy: {}", policy_id);
             let policy_results = self
                 .policy_engine
                 .evaluate_rego(
