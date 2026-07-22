@@ -218,6 +218,7 @@ impl EarAttestationTokenBroker {
                 extensions.push(extension);
             }
 
+            debug!("Evaluating policy: {}", policy_id);
             let policy_results = self
                 .policy_engine
                 .evaluate_rego(

@@ -154,14 +154,19 @@ impl Snp {
             };
 
             if let Ok(vcek_bytes) = result {
-                debug!("fetched vcek from {:?}", source);
+                debug!("VCEK fetched successfully from {}", source);
                 return Ok(vcek_bytes);
             }
         }
 
-        debug!(
-            "failed to fetch vcek from all configured sources {:?}",
-            self.verifier_config.vcek_sources
+        warn!(
+            "VCEK fetch failed: exhausted all configured sources. Configured sources: [{}]",
+            self.verifier_config
+                .vcek_sources
+                .iter()
+                .map(|s| s.to_string())
+                .collect::<Vec<_>>()
+                .join(", ")
         );
         bail!("Failed to fetch VCEK from any configured source")
     }
@@ -176,9 +181,10 @@ impl Snp {
         let path = path.unwrap_or(KDS_OFFLINE_STORE_PATH.to_string());
         let hw_id = self.parse_hw_id_from_vcek(att_report, proc_gen.clone());
         let vcek_path = format!("{}/vcek/{}/vcek.der", path, hw_id);
-        let vcek_bytes = std::fs::read(&vcek_path)
-            .with_context(|| format!("Failed to read VCEK from offline store at {}", vcek_path))?;
-        Ok(vcek_bytes)
+
+        std::fs::read(&vcek_path)
+            .inspect_err(|e| debug!("VCEK offline store miss: {vcek_path}: {e}"))
+            .with_context(|| format!("Failed to read VCEK from {vcek_path}"))
     }
 
     fn parse_hw_id_from_vcek(
@@ -307,6 +313,21 @@ pub enum VCEKSource {
     KDS { base_url: Option<String> },
 }
 
+impl std::fmt::Display for VCEKSource {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            VCEKSource::OfflineStore { path } => write!(
+                f,
+                "OfflineStore({})",
+                path.as_deref().unwrap_or(KDS_OFFLINE_STORE_PATH)
+            ),
+            VCEKSource::KDS { base_url } => {
+                write!(f, "KDS({})", base_url.as_deref().unwrap_or(KDS_CERT_SITE))
+            }
+        }
+    }
+}
+
 #[derive(Clone, Debug)]
 pub(crate) enum VendorEndorsementKey {
     Vcek,
@@ -370,6 +391,7 @@ impl Verifier for Snp {
         let vek = match cert_chain {
             // If the user provided cert chain, use that.
             Some(chain) => {
+                debug!("SNP attestation: using user-supplied certificate chain");
                 // Initialize certs as options, will be filled out if left as none
                 let mut ask: Option<Certificate> = None;
                 let mut ark: Option<Certificate> = None;
@@ -436,13 +458,14 @@ impl Verifier for Snp {
 
             // No certificate chain provided, so we need to request the VCEK from configured sources
             _ => {
+                debug!("SNP attestation: fetching VCEK from configured sources");
                 // Get VCEK from configured sources (tries each in order)
                 let vcek_buf = self
                     .fetch_vcek(report, proc_gen.clone())
                     .await
                     .context("Failed to fetch VCEK from any configured source")?;
                 let vcek = Certificate::from_bytes(&vcek_buf)
-                    .context("Failed to convert KDS VCEK into certificate")?;
+                    .context("Failed to convert fetched VCEK into certificate")?;
 
                 let chain = Chain {
                     ca: CaChain {
@@ -455,7 +478,7 @@ impl Verifier for Snp {
                 // Verify the chain and return vek if succesful
                 chain
                     .verify()
-                    .context("Certificate chain from KDS failed verification")?;
+                    .context("Certificate chain from configured sources failed verification")?;
 
                 // Return the vcek
                 vcek.clone()
@@ -660,14 +683,24 @@ pub(crate) fn get_processor_generation(
         0x19 => match cpu_mod {
             0x0..=0xF => Ok(ProcessorGeneration::Milan),
             0x10..=0x1F | 0xA0..0xAF => Ok(ProcessorGeneration::Genoa),
-            _ => Err(anyhow::anyhow!("Processor model not supported")),
+            _ => Err(anyhow::anyhow!(
+                "Processor model not supported: cpu_fam={:#x} cpu_mod={:#x}",
+                cpu_fam,
+                cpu_mod
+            )),
         },
         0x1A => match cpu_mod {
             0x0..=0x11 => Ok(ProcessorGeneration::Turin),
-
-            _ => Err(anyhow::anyhow!("Processor model not supported")),
+            _ => Err(anyhow::anyhow!(
+                "Processor model not supported: cpu_fam={:#x} cpu_mod={:#x}",
+                cpu_fam,
+                cpu_mod
+            )),
         },
-        _ => Err(anyhow::anyhow!("Processor family not supported")),
+        _ => Err(anyhow::anyhow!(
+            "Processor family not supported: cpu_fam={:#x}",
+            cpu_fam
+        )),
     }
 }
 
