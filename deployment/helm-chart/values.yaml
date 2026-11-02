@@ -172,7 +172,7 @@ kbs:
     attestedSelectorValue: "true"
   image:
     # -- KBS container image repository.
-    repository: ghcr.io/confidential-containers/staged-images/kbs-grpc-as
+    repository: ghcr.io/confidential-containers/key-broker-service
     # -- KBS container image pull policy.
     pullPolicy: Always
     # -- KBS container image tag.
@@ -218,7 +218,7 @@ as:
   replicaCount: 1
   image:
     # -- AS container image repository.
-    repository: ghcr.io/confidential-containers/staged-images/coco-as-grpc
+    repository: ghcr.io/confidential-containers/attestation-service
     # -- AS container image pull policy.
     pullPolicy: Always
     # -- AS container image tag.
@@ -313,7 +313,7 @@ rvps:
   replicaCount: 1
   image:
     # -- RVPS container image repository.
-    repository: ghcr.io/confidential-containers/staged-images/rvps
+    repository: ghcr.io/confidential-containers/reference-value-provider-service
     # -- RVPS container image pull policy.
     pullPolicy: Always
     # -- RVPS container image tag.
