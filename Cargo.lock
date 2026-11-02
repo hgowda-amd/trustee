@@ -584,7 +584,7 @@ checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 [[package]]
 name = "attestation-agent"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -595,7 +595,7 @@ dependencies = [
  "const_format",
  "crypto",
  "hex",
- "kbs-types",
+ "kbs-types 0.18.0 (git+https://github.com/confidential-containers/kbs-types.git?rev=1de87bd35bdd8b58a798b4d80fdc20d9830ac52d)",
  "serde",
  "serde_json",
  "sha2 0.11.1",
@@ -610,7 +610,7 @@ dependencies = [
 
 [[package]]
 name = "attestation-service"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "actix-cors",
  "actix-web",
@@ -624,7 +624,7 @@ dependencies = [
  "ear",
  "hex",
  "jsonwebtoken",
- "kbs-types",
+ "kbs-types 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "key-value-storage",
  "mobc",
  "openssl",
@@ -637,7 +637,7 @@ dependencies = [
  "rustls",
  "serde",
  "serde_json",
- "serde_json_canonicalizer",
+ "serde_json_canonicalizer 0.3.2",
  "serde_variant",
  "serial_test",
  "sha2 0.11.1",
@@ -662,7 +662,7 @@ dependencies = [
 [[package]]
 name = "attester"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -678,8 +678,8 @@ dependencies = [
  "hex",
  "hyper 0.14.32",
  "hyper-tls 0.5.0",
- "iocuddle 0.3.0",
- "kbs-types",
+ "iocuddle 0.4.0",
+ "kbs-types 0.18.0 (git+https://github.com/confidential-containers/kbs-types.git?rev=1de87bd35bdd8b58a798b4d80fdc20d9830ac52d)",
  "num-traits",
  "nv-attestation-sdk",
  "occlum_dcap",
@@ -689,7 +689,6 @@ dependencies = [
  "picky-asn1-der",
  "picky-asn1-x509",
  "s390_pv",
- "scroll",
  "serde",
  "serde_json",
  "serde_with",
@@ -2160,11 +2159,11 @@ checksum = "460fbee9c2c2f33933d720630a6a0bac33ba7053db5344fac858d4b8952d77d5"
 [[package]]
 name = "crypto"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "base64 0.23.1",
- "kbs-types",
+ "kbs-types 0.18.0 (git+https://github.com/confidential-containers/kbs-types.git?rev=1de87bd35bdd8b58a798b4d80fdc20d9830ac52d)",
  "openssl",
  "rand 0.10.3",
  "serde",
@@ -2916,7 +2915,7 @@ dependencies = [
 
 [[package]]
 name = "eventlog"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "assert-json-diff",
@@ -4160,7 +4159,7 @@ dependencies = [
 
 [[package]]
 name = "integration-tests"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "actix-web",
  "anyhow",
@@ -4210,9 +4209,9 @@ checksum = "d8972d5be69940353d5347a1344cb375d9b457d6809b428b05bb1ca2fb9ce007"
 
 [[package]]
 name = "iocuddle"
-version = "0.3.0"
+version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a5fab23069aa80df2de983e9d2e989f838af07041e99d85245ea4b1dac7a5933"
+checksum = "b9faa2eb1051fb714783e08c74354aebf4ebf5c0cd3a11ed1059a4b474b4a5db"
 dependencies = [
  "zerocopy",
 ]
@@ -4512,7 +4511,7 @@ dependencies = [
 
 [[package]]
 name = "kbs"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "actix",
  "actix-web",
@@ -4539,7 +4538,7 @@ dependencies = [
  "hex",
  "josekit",
  "jsonwebtoken",
- "kbs-types",
+ "kbs-types 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "key-value-storage",
  "kms",
  "ml-kem",
@@ -4586,7 +4585,7 @@ dependencies = [
 
 [[package]]
 name = "kbs-client"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "base64 0.23.1",
@@ -4618,9 +4617,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "kbs-types"
+version = "0.18.0"
+source = "git+https://github.com/confidential-containers/kbs-types.git?rev=1de87bd35bdd8b58a798b4d80fdc20d9830ac52d#1de87bd35bdd8b58a798b4d80fdc20d9830ac52d"
+dependencies = [
+ "base64 0.22.1",
+ "serde",
+ "serde_json",
+ "sha2 0.10.9",
+ "sm3 0.4.2",
+ "strum 0.27.2",
+ "thiserror 2.0.21",
+]
+
+[[package]]
 name = "kbs_protocol"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4628,12 +4641,12 @@ dependencies = [
  "base64 0.23.1",
  "crypto",
  "jwt-simple",
- "kbs-types",
+ "kbs-types 0.18.0 (git+https://github.com/confidential-containers/kbs-types.git?rev=1de87bd35bdd8b58a798b4d80fdc20d9830ac52d)",
  "reqwest 0.13.5",
  "resource_uri",
  "serde",
  "serde_json",
- "serde_json_canonicalizer",
+ "serde_json_canonicalizer 0.4.1",
  "sha2 0.11.1",
  "shadow-rs",
  "thiserror 2.0.21",
@@ -4674,7 +4687,7 @@ dependencies = [
 
 [[package]]
 name = "key-value-storage"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4696,7 +4709,7 @@ dependencies = [
 [[package]]
 name = "kms"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -5782,7 +5795,7 @@ checksum = "b4596b6d070b27117e987119b4dac604f3c58cfb0b191112e24771b2faeac1a6"
 
 [[package]]
 name = "policy-engine"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -6030,7 +6043,7 @@ dependencies = [
 [[package]]
 name = "protos"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "prost",
  "tonic",
@@ -6349,7 +6362,7 @@ dependencies = [
 
 [[package]]
 name = "reference-value-provider-service"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "assert-json-diff",
@@ -6601,7 +6614,7 @@ dependencies = [
 [[package]]
 name = "resource_uri"
 version = "0.1.0"
-source = "git+https://github.com/confidential-containers/guest-components.git?rev=0485e874a67a53477841f7ac8de15b41aaf632e2#0485e874a67a53477841f7ac8de15b41aaf632e2"
+source = "git+https://github.com/confidential-containers/guest-components.git?rev=7d4317039c984ac71fcb11074291a1f1825bd0fe#7d4317039c984ac71fcb11074291a1f1825bd0fe"
 dependencies = [
  "anyhow",
  "serde",
@@ -7156,6 +7169,17 @@ name = "serde_json_canonicalizer"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fe52319a927259afbfa5180c5157cd8167edfd3e8c254f9558c7fef44c5649f2"
+dependencies = [
+ "ryu-js",
+ "serde",
+ "serde_json",
+]
+
+[[package]]
+name = "serde_json_canonicalizer"
+version = "0.4.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "87f7bb64f8c7e9f783fdfe883b5fe93a90bee1597c63705baa91842c5f698620"
 dependencies = [
  "ryu-js",
  "serde",
@@ -8554,7 +8578,7 @@ dependencies = [
 
 [[package]]
 name = "trustee-cli"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "attestation-service",
@@ -8851,7 +8875,7 @@ dependencies = [
 
 [[package]]
 name = "verifier"
-version = "0.1.0"
+version = "0.23.0"
 dependencies = [
  "anyhow",
  "asn1-rs",
@@ -8874,7 +8898,7 @@ dependencies = [
  "intel-tee-quote-verification-rs",
  "jsonwebkey 0.4.0",
  "jsonwebtoken",
- "kbs-types",
+ "kbs-types 0.18.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "key-value-storage",
  "nv-attestation-sdk",
  "openssl",

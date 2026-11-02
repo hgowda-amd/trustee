@@ -14,7 +14,7 @@ members = [
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.23.0"
 authors = ["The Confidential Container Authors"]
 description = "Confidential Container Tools and Components for the tenant side"
 documentation = "https://github.com/confidential-containers/kbs"
@@ -35,9 +35,9 @@ const_format = "0.2.36"
 educe = "0.7"
 ear = "0.5.0"
 hex = "0.4.3"
-kbs_protocol = { git = "https://github.com/confidential-containers/guest-components.git", rev = "0485e874a67a53477841f7ac8de15b41aaf632e2", default-features = false }
+kbs_protocol = { git = "https://github.com/confidential-containers/guest-components.git", rev = "7d4317039c984ac71fcb11074291a1f1825bd0fe", default-features = false }
 kbs-types = "0.18.0"
-kms = { git = "https://github.com/confidential-containers/guest-components.git", rev = "0485e874a67a53477841f7ac8de15b41aaf632e2", default-features = false }
+kms = { git = "https://github.com/confidential-containers/guest-components.git", rev = "7d4317039c984ac71fcb11074291a1f1825bd0fe", default-features = false }
 jsonwebtoken = { version = "10", default-features = false, features = [
     "aws_lc_rs",
     "use_pem",
